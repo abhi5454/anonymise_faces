@@ -1,0 +1,18 @@
+# Direct runtime dependencies of this repo (verified importable in retina_env;
+# full pinned freeze of the working venv: `./retina_env/bin/pip freeze`).
+# Python 3.12.
+fastapi==0.142.2
+uvicorn==0.54.0
+pydantic==2.13.5
+httpx==0.28.1
+pytest==9.1.1
+numpy==2.5.3
+opencv-python==5.0.0.93
+pillow==12.3.0
+torch==2.14.1
+torchvision==0.29.1
+insightface==2.0
+# Pipeline B verifier (RetinaFace, pytorch backend).
+retinaface==0.0.19
+# Set before importing the verifier:
+#   export DEEPFACE_BACKEND_ENGINE=pytorch

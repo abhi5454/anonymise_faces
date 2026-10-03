@@ -1,0 +1,22 @@
+# Environments / caches / local data (not part of the submission source)
+retina_env/
+artifacts/
+uploads/
+previews/
+crops/
+*.sqlite3
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+
+# Eval outputs (regenerable; manifests/sheets are built by eval scripts)
+eval/out/
+eval/out2/
+eval/clips/
+
+# Local data / vendored sources (not produced by this repo's code)
+input_video.mp4
+retinaface/
+RetinaFaceTest.ipynb
+retinaface_results.json
