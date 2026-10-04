@@ -8,12 +8,12 @@ the raw terminal output.
 ## Setup
 
 ```bash
-cd /Users/abhisheklal/Workspace/anonymise_faces
-export PYTHONPATH=/Users/abhisheklal/Workspace/anonymise_faces
+cd /path/to/anonymise_faces          # repo root, not a machine-specific path
+export PYTHONPATH=$PWD
 export DEEPFACE_BACKEND_ENGINE=pytorch
 export ANON_WORKER=1                    # start the worker inside the API
 
-# a fresh input file (20 frames re-encoded from input_video.mp4)
+# a fresh input file (20 frames re-encoded from your input clip)
 ffmpeg -y -v error -i input_video.mp4 -frames:v 20 -c:v libx264 -crf 20 /tmp/idem_demo.mp4
 # sha256 bd9d1ddf5fd5baeeef87404828875517b10dc62bbccaa99d023e226fae8f859f
 sqlite3 jobs.sqlite3 'select count(*) from jobs;'   # 2 rows before

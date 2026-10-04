@@ -1,6 +1,7 @@
 """API-level tests: POST /jobs idempotency + GET shape (no worker)."""
 
 import os
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
@@ -8,8 +9,8 @@ from common import config as config_mod
 from jobs.api import create_app
 from jobs.store import JobStore
 
-ROOT = "/Users/abhisheklal/Workspace/anonymise_faces"
-DB = "/tmp/test_api.sqlite3"
+ROOT = str(Path(__file__).resolve().parent.parent)
+DB = str(Path("/tmp") / "test_api.sqlite3")
 
 
 def _client():

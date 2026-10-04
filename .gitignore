@@ -15,8 +15,16 @@ eval/out/
 eval/out2/
 eval/clips/
 
+# Notebook scratch (regenerable; artifacts/crops written by notebooks/e2e_validation.ipynb)
+notebooks/out/
+.ipynb_checkpoints/
+
 # Local data / vendored sources (not produced by this repo's code)
 input_video.mp4
 retinaface/
 RetinaFaceTest.ipynb
 retinaface_results.json
+
+# Large / scratch inputs excluded from the submission
+downloads/
+.tmp_review/

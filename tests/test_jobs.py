@@ -2,18 +2,22 @@
 
 import json
 import os
+import tempfile
 import threading
+from pathlib import Path
 
 import pytest
 
 from common import config as config_mod
 from jobs import decision as decision_mod
-from jobs.store import JobStore
+from jobs.store import JobStore  # noqa: F401  (re-exported for callers)
 
-ROOT = "/Users/abhisheklal/Workspace/anonymise_faces"
+ROOT = str(Path(__file__).resolve().parent.parent)
+TMP = tempfile.gettempdir()
 
 
-def _store(path="/tmp/test_jobs.sqlite3"):
+def _store(path=None):
+    path = path or str(Path(TMP) / "test_jobs.sqlite3")
     if os.path.exists(path):
         os.remove(path)
     return JobStore(path)
@@ -44,7 +48,7 @@ def test_concurrent_duplicate_submit_creates_one_row():
 
 
 def test_same_video_new_version_is_new_job():
-    store = _store("/tmp/test_jobs2.sqlite3")
+    store = _store(str(Path(TMP) / "test_jobs2.sqlite3"))
     cfg = config_mod.canonical_config(None)
     digest = "abc123"
     old_version = config_mod.PIPELINE_VERSION

@@ -2,6 +2,7 @@
 
 import os
 import uuid
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
@@ -10,14 +11,21 @@ from common import config as config_mod
 from common.hashing import sha256_file
 from jobs.store import JobStore
 
-UPLOAD_DIR = os.environ.get(
-    "UPLOAD_DIR", "/Users/abhisheklal/Workspace/anonymise_faces/uploads")
-DB_PATH = os.environ.get(
-    "JOBS_DB", "/Users/abhisheklal/Workspace/anonymise_faces/jobs.sqlite3")
-OUT_DIR = os.environ.get(
-    "ARTIFACT_DIR", "/Users/abhisheklal/Workspace/anonymise_faces/artifacts")
-CROPS_DIR = os.environ.get(
-    "CROPS_DIR", "/Users/abhisheklal/Workspace/anonymise_faces/crops")
+# Repo root = the directory containing this package's parent (repo/jobs/api.py
+# -> repo). Resolved from __file__ so the defaults follow the checkout instead
+# of a hardcoded path; every value stays overridable by env var.
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+
+def _default_path(env_name, *parts):
+    """Env override if set, else a repo-relative default."""
+    return os.environ.get(env_name) or str(REPO_ROOT.joinpath(*parts))
+
+
+UPLOAD_DIR = _default_path("UPLOAD_DIR", "uploads")
+DB_PATH = _default_path("JOBS_DB", "jobs.sqlite3")
+OUT_DIR = _default_path("ARTIFACT_DIR", "artifacts")
+CROPS_DIR = _default_path("CROPS_DIR", "crops")
 
 
 class JobRequest(BaseModel):
